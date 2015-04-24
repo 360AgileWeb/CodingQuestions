@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
+using CodingQuiz.Repo;
 
 namespace CodingQuiz
 {
@@ -11,6 +12,7 @@ namespace CodingQuiz
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<ICodingQuizRepository, CodingQuizRepository>();
         }
 
         public void Configure(IApplicationBuilder app)

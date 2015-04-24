@@ -8,7 +8,6 @@
             "dependencies": {
             },
             "frameworkAssemblies": {
-                "System.ComponentModel.DataAnnotations": "4.0.0.0"
             }
         },
         "aspnetcore50": {
