@@ -9,6 +9,7 @@ using System.Linq;
 namespace CodingQuiz.Controllers
 {
     [Route("api/[controller]")]
+    //[Route("[controller]/[action]")]
     public class QuestionController : Controller
     {
         private readonly ICodingQuizRepository _repository;
@@ -37,7 +38,7 @@ namespace CodingQuiz.Controllers
         }
 
         [HttpPost]
-        public void CreateQuestion([FromBody] Question item)
+        public void CreateQuestion(/*[FromBody]*/ Question item)
         {
             if (!ModelState.IsValid)
             {
@@ -49,10 +50,8 @@ namespace CodingQuiz.Controllers
                 _repository.Add(item);
 
                 string url = Url.RouteUrl("GetByIdRoute", new { id = item.Id },
-                    Request.Scheme, Request.Host.ToUriComponent());
+                  Request.Scheme, Request.Host.ToUriComponent());                
 
-                Context.Response.StatusCode = 201;
-                Context.Response.Headers["Location"] = url;
             }
         }
 
@@ -70,5 +69,16 @@ namespace CodingQuiz.Controllers
 
         }
 
+       #region Views 
+        public IActionResult Index()
+        {
+            return View("Index", _repository.AllItems);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        #endregion
     }
 }

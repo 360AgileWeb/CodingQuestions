@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     ViewBag.Title = "Quiz Page";
+}
+
+@model IEnumerable<CodingQuiz.Model.Question>
+    
+<h1>Questions</h1>
+@foreach (var question in Model.ToList())
+{
+    <div>
+        Id: @question.Id , Text = @question.QuestionText <br/>
+    </div>
+}
+
+@Html.ActionLink("Add New","Create", "Question")
+

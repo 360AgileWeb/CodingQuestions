@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+     ViewBag.Title = "Create new question";
+}
+@model CodingQuiz.Model.Question
+
+    <h1>Add new Question</h1>
+    <form action="/Question/CreateQuestion" method="post">
+   
+        @Html.EditorForModel()
+        <input type="submit" value="submit" />
+    </form>

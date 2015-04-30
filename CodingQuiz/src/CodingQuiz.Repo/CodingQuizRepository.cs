@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodingQuiz.Model;
 using System.Linq;
 
@@ -13,9 +12,12 @@ namespace CodingQuiz.Repo
         {
             get
             {
-                //simulate a few items
+                //Seed first question to Demo
                 var newId = (_items.Count + 1);
-                _items.Add(new Question() {Id =newId, QuestionText="Question " + newId.ToString(), QuizId=1 });
+                if (newId == 1)
+                {
+                    _items.Add(new Question() { Id = newId, QuestionText = "Question " + newId.ToString(), QuizId = 1 });
+                }
 
                 return _items;
             }
