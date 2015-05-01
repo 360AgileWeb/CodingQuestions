@@ -8,8 +8,8 @@ using System.Linq;
 
 namespace CodingQuiz.Controllers
 {
-    [Route("api/[controller]")]
-    //[Route("[controller]/[action]")]
+    [Route("api/[controller]")] //Using route tokens. [controller] is placeholder of actual controller 
+    //[Route("[controller]/[action]")] //Say, for For Web UI
     public class QuestionController : Controller
     {
         private readonly ICodingQuizRepository _repository;
@@ -24,8 +24,8 @@ namespace CodingQuiz.Controllers
         {
             return _repository.AllItems;
         }
-
-        [HttpGet("{id:int}", Name = "GetByIdRoute")]
+        
+        [HttpGet("{id:int}", Name = "GetByIdRoute")]//Example of merging Route Verb and attributes
         public IActionResult GetById(int id)
         {
             var item = _repository.AllItems.FirstOrDefault(x => x.Id == id);
@@ -36,10 +36,26 @@ namespace CodingQuiz.Controllers
 
             return new ObjectResult(item);
         }
+        
+        /*
+        [HttpGet("{id:int}", Name = "GetByIdRoute")]
+        [Produces("application/json")] //If you want to serve specific fomart
+        public Question GetById(int id)
+        {
+            var item = _repository.AllItems.FirstOrDefault(x => x.Id == id);
+            if (item == null)
+            {
+                return new Question() { Id = 10001, QuestionText = "Some othe question" };
+            }
+
+            return item;
+        }
+        */
 
         [HttpPost]
-        public void CreateQuestion(/*[FromBody]*/ Question item)
+        public void CreateQuestion(Question item)
         {
+            //1. Model binding from Form Post: Can use [FromBody], [FromHeader], etc
             if (!ModelState.IsValid)
             {
                 Context.Response.StatusCode = 400;
@@ -50,8 +66,10 @@ namespace CodingQuiz.Controllers
                 _repository.Add(item);
 
                 string url = Url.RouteUrl("GetByIdRoute", new { id = item.Id },
-                  Request.Scheme, Request.Host.ToUriComponent());                
+                  Request.Scheme, Request.Host.ToUriComponent());
 
+                Context.Response.StatusCode = 201;
+                Context.Response.Headers["Location"] = url;
             }
         }
 
