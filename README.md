@@ -1,4 +1,4 @@
-# About CodingQuiz
+# About KidsWhoCode Quiz
 A simple tool to enable a learner (students) practise their coding skills online through a question and answer approach. Students can be registered to keep a profile, when not registered no profile or history will be kept by the system.
 
 A teacher or coach will manage a group or a class of students, monitor their activity and performance via various reports and dashboards.
